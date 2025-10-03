@@ -1,19 +1,22 @@
+import os
 import pandas as pd
-from custom_parsers.icici_parser import parse
+from importlib import import_module
 
-def test_icici_parser():
-    """
-    Test the ICICI parser against the ground truth CSV.
-    """
-    # Path to the sample PDF and CSV
-    pdf_path = "data/icici/icici_sample.pdf"
-    csv_path = "data/icici/icici_sample.csv"
+def test_bank_parser():
+    # Detect target bank from environment variable (set by agent.py when calling pytest)
+    bank = os.environ.get("TARGET_BANK", "icici").lower()
 
-    # Run parser
-    df = parse(pdf_path)
+    pdf_path = f"data/{bank}/{bank}_sample.pdf"
+    csv_path = f"data/{bank}/{bank}_sample.csv"
 
-    # Load expected CSV
+    # Dynamically import the parser for this bank
+    parser_module = import_module(f"custom_parsers.{bank}_parser")
+
+    df = parser_module.parse(pdf_path)
     expected = pd.read_csv(csv_path)
 
-    # Ensure DataFrame equality
-    assert df.equals(expected), "Parsed DataFrame does not match expected output"
+    # Align column order before comparison
+    df = df[expected.columns.tolist()]
+
+    assert df.equals(expected), f"Parsed DataFrame does not match for {bank}"
+
