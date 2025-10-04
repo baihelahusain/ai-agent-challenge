@@ -5,27 +5,27 @@
 
 ## ⚙️ 5-Step Run Instructions
 
-1️⃣ **Create and activate a virtual environment**
+
 ```bash
+1️. Create and activate a virtual environment
 python -m venv venv
 # Windows
 venv\Scripts\activate
 
-2️⃣ Install project dependencies
+2️. Install project dependencies
 pip install -r requirements.txt
 
-3️⃣ Set up your Gemini API key
+3️. Set up your Gemini API key
 # in a .env file or environment variable
 GOOGLE_API_KEY=your_api_key_here
 
-4️⃣ Generate a parser for a bank
+4️. Generate a parser for a bank
 python agent.py --target icici
 
-5️⃣ Verify the generated parser
+5️. Verify the generated parser
 pytest tests/test_parser.py -v
 ```
 ---
 
 ## Architecture Diagram
-Option 1 – Embed your SVG (recommended)
-![Agent Architecture](assets/agent_architecture.svg)
+![Agent Architecture](assets/flowchart.drawio.svg)
