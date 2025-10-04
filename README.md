@@ -3,7 +3,7 @@
 
 ---
 
-## ⚙️ 5-Step Run Instructions
+## 5-Step Run Instructions
 
 
 ```bash
